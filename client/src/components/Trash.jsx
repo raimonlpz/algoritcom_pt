@@ -49,7 +49,7 @@ export const Trash = () => {
                         anchorY="middle" // Center the text vertically
                     >
                         {counter}
-                    </Text>
+                </Text>
             </Billboard>
         </group>
     )

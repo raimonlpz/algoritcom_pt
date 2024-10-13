@@ -38,12 +38,10 @@ export const Experience = () => {
     }
 
     const spawnBeers = () => {
-        if (beers.length < 10) {
-            const randomX = Math.random() * map.size[0] / 2 * map.gridDivision // Random X position
-            const randomZ = Math.random() * map.size[1] / 2 * map.gridDivision // Random Z position
-            const position = [randomX, 5 + Math.random() * 5, randomZ]; // Ball falls from height between 5 and 10
-            setBeers((beers) => [...beers, position]);
-        }  
+        const randomX = Math.random() * map.size[0] / 2 * map.gridDivision // Random X position
+        const randomZ = Math.random() * map.size[1] / 2 * map.gridDivision // Random Z position
+        const position = [randomX, 5 + Math.random() * 5, randomZ]; // Ball falls from height between 5 and 10
+        setBeers((beers) => [...beers, position]); 
     }
 
     useEffect(() => {
@@ -113,7 +111,7 @@ export const Experience = () => {
                         <meshStandardMaterial color="#191919" />
                     </mesh>
                 </RigidBody>
-                <Grid infiniteGrid fadeDistance={50} fadeStrength={5} />
+                {/* <Grid infiniteGrid fadeDistance={50} fadeStrength={5} /> */}
                 <Trash />
                 {
                     map.items.map((item, idx) => (

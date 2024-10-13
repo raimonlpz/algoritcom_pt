@@ -7,7 +7,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useGraph } from '@react-three/fiber'
 import { useGLTF, useAnimations, Text } from '@react-three/drei'
 import { SkeletonUtils } from 'three-stdlib'
-import { eventsPlayerAtom, userAtom } from '../atoms'
+import { camAtom, eventsPlayerAtom, userAtom } from '../atoms'
 import { useAtom } from 'jotai'
 import { socket } from '../api/SocketProvider'
 import { useGrid } from '../hooks/useGrid'
@@ -32,6 +32,7 @@ export function Player({
   const [animation, setAnimation] = useState("Idle");
 
   const [user] = useAtom(userAtom)
+  const [cam] = useAtom(camAtom)
   const [eventsPlayer, setEventsPlayer] = useAtom(eventsPlayerAtom)
 
 
@@ -88,10 +89,6 @@ export function Player({
         event.preventDefault(); 
         socket.emit('dance', id)
       }
-
-      if (event.code === 'Enter') {
-       // shootBeer();
-      }
     }
   };
 
@@ -114,13 +111,11 @@ export function Player({
       else setAnimation("Idle")
     }
     if (id === user) {
-      state.camera.position.x = group.current.position.x + 6;
-      state.camera.position.y = group.current.position.y + 6;
-      state.camera.position.z = group.current.position.z + 6;
+      state.camera.position.x = group.current.position.x + (cam === 'Default' ? 6 : 2);
+      state.camera.position.y = group.current.position.y + (cam === 'Default' ? 6 : 6);
+      state.camera.position.z = group.current.position.z + (cam === 'Default' ? 6 : 0);
       state.camera.lookAt(group.current.position);
     }
-
-
   });
 
   return (
