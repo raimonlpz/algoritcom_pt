@@ -92,6 +92,14 @@ export function Player({
     }
   };
 
+  useEffect(() => {
+    socket.on('canRobbed', (user) => {
+      if (user.id === id) {
+        setAnimation('Jump');
+      } 
+    })
+  }, [])
+
 
   useFrame((state) => {
     if (path?.length && group.current.position.distanceTo(path[0]) > 0.1) {

@@ -1,7 +1,7 @@
 import { Environment, Grid, OrbitControls, useCursor, } from "@react-three/drei"
 import { Player } from "./Player"
 import { useAtom } from "jotai"
-import { mapAtom, playersAtom, userAtom } from "../atoms"
+import { drunkieAtom, mapAtom, playersAtom, userAtom } from "../atoms"
 import { useGrid } from "../hooks/useGrid"
 import { Fence } from "./Fence"
 import { useEffect, useState } from "react"
@@ -10,19 +10,21 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { Trash } from "./Trash"
 import { Physics, RigidBody } from "@react-three/rapier"
 import { Beer } from "./Beer"
+import { Drunkie } from "./Drunkie"
 
 
 export const Experience = () => {
 
     const [map] = useAtom(mapAtom)
     const [user] = useAtom(userAtom)
+    const [drunkie] = useAtom(drunkieAtom)
     const [players] = useAtom(playersAtom)
 
     const scene = useThree((state) => state.scene);
     const { gridToVector3, vector3ToGrid } = useGrid()
 
     const [beers, setBeers] = useState([]);
-    const [beersCollected, setBeersCollected] = useState([])
+    const [beersCollected] = useState([])
 
     const [onFloor, setOnFloor] = useState(false)
     useCursor(onFloor); 
@@ -45,10 +47,10 @@ export const Experience = () => {
     }
 
     useEffect(() => {
-        const interval = setInterval(spawnBeers, 200); // Spawn a new ball every 2 seconds
+        const interval = setInterval(spawnBeers, 100); // Spawn a new ball every 1 millisecond
         setTimeout(() => {
             clearInterval(interval);
-        }, 20000)
+        }, 10000)
         return () => clearInterval(interval);
     }, []);
 
@@ -76,7 +78,7 @@ export const Experience = () => {
         <>
             <Environment preset="sunset" />
 
-            <fog attach="fog" args={['black', 10, 14]} intensity={0.0104} />
+            <fog attach="fog" args={['greenyellow', 10, 14, 0.4]} near={10} far={25} />
 
             <ambientLight intensity={0.2} />
            
@@ -131,6 +133,13 @@ export const Experience = () => {
                             path={player.path}
                         />
                     ))
+                }
+
+                {
+                    <Drunkie 
+                        position={gridToVector3(drunkie.position)}
+                        path={drunkie.path}
+                    />
                 }
       
                 {

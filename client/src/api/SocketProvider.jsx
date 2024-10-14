@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
-import { playersAtom, mapAtom, userAtom, eventsPlayerAtom } from '../atoms'
+import { playersAtom, mapAtom, userAtom, eventsPlayerAtom, drunkieAtom } from '../atoms'
 import { useAtom } from 'jotai'
 
 export const socket = io('http://localhost:3001')
 
 export const SocketProvider = () => {
 
-    const [_players, setPlayers] = useAtom(playersAtom)   
+    const [_players, setPlayers] = useAtom(playersAtom)  
+    const [_drunkie, setDrunkie] = useAtom(drunkieAtom) 
     const [_user, setUser] = useAtom(userAtom)
     const [_map, setMap] = useAtom(mapAtom) 
     const [eventsPlayer, setEventsPlayer] = useAtom(eventsPlayerAtom)
@@ -25,10 +26,12 @@ export const SocketProvider = () => {
             const {
                 map,
                 id, 
-                players
+                players,
+                drunkie
             } = value
             setMap(map)
             setUser(id)
+            setDrunkie(drunkie)
             setPlayers(players)
         } 
 
@@ -74,6 +77,24 @@ export const SocketProvider = () => {
             })
         }
 
+        function onCanRobbed(value) {
+            setPlayers((prev) => {
+                return prev.map((player) => {
+                    if (player.id === value.id) {
+                        return {
+                            ...player,
+                            cansCount: value.cansCount
+                        }
+                    }
+                    return player
+                })
+            })
+        }
+
+        function onDrunkieMove(value) {
+            setDrunkie(value)
+        }
+
         socket.on('connect', onConnect)
         socket.on('initPlayer', onInitPlayer)
         socket.on('players', onPlayers)
@@ -81,6 +102,8 @@ export const SocketProvider = () => {
         socket.on('dance', onDance)
         socket.on('run', onRun)
         socket.on('canCollected', onCanCollected)
+        socket.on('canRobbed', onCanRobbed)
+        socket.on('drunkieMove', onDrunkieMove)
         socket.on('disconnect', onDisconnect)
 
         return () => {
@@ -91,6 +114,8 @@ export const SocketProvider = () => {
             socket.off('jump', onJump)
             socket.off('dance', onDance)
             socket.off('canCollected', onCanCollected)
+            socket.off('canRobbed', onCanRobbed)
+            socket.off('drunkieMove', onDrunkieMove)
             socket.off('run', onRun)
         }
     }, [])

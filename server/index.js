@@ -11,6 +11,7 @@ const io = new Server({
 io.listen(3001);
 
 const players = [];
+let drunkie = {};
 
 const fence = {
   size: [4, 1],
@@ -193,9 +194,12 @@ io.on("connection", (socket) => {
     cansCount: 0,
   });
 
+  drunkie.position = generateRandomPosition();
+
   socket.emit("initPlayer", {
     map,
     players,
+    drunkie,
     id: socket.id,
   });
 
@@ -225,10 +229,28 @@ io.on("connection", (socket) => {
     io.emit("canCollected", player);
   });
 
+  socket.on("canRobbed", () => {
+    const player = players.find((player) => player.id === socket.id);
+    if (player.cansCount > 0) {
+      player.cansCount--;
+      io.emit("canRobbed", player);
+    }
+  });
+
   socket.on("jump", (user) => {
     io.emit("jump", user);
   });
   socket.on("dance", (user) => {
     io.emit("dance", user);
   });
+
+  setInterval(() => {
+    const from = drunkie.position;
+    const to = generateRandomPosition();
+    const path = findPath(from, to);
+    if (!path) return;
+    drunkie.position = to;
+    drunkie.path = path;
+    io.emit("drunkieMove", drunkie);
+  }, 3000);
 });

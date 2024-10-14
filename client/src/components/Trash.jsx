@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SkeletonUtils } from 'three-stdlib'
 import { useGrid } from "../hooks/useGrid";
 import { useAtom } from "jotai";
-import { mapAtom, playersAtom, userAtom } from "../atoms";
+import { playersAtom, userAtom } from "../atoms";
 
 export const Trash = () => {
     const { scene } = useGLTF('/models/Trash.glb')

@@ -8,3 +8,4 @@ export const eventsPlayerAtom = atom({
   dance: null,
   jump: null,
 });
+export const drunkieAtom = atom(null);
