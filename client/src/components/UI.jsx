@@ -1,17 +1,28 @@
-import { useEffect } from "react";
-import { camAtom, playersAtom } from "../atoms";
+
+import { camAtom, gridAtom, playersAtom, userAtom } from "../atoms";
 import { useAtom } from "jotai";
 
 export default function UI() {
 
+  const [user] = useAtom(userAtom)
   const [players] = useAtom(playersAtom)
   const [cam, setCam] = useAtom(camAtom)
+  const [grid, setGrid] = useAtom(gridAtom)
 
-  const onToggle = (e) => {
+
+  const onToggleCam = (e) => {
     if (e.target.checked) {
       setCam("Zoom")
     } else {
       setCam("Default")
+    }
+  }
+
+  const onToggleGrid = (e) => {
+    if (e.target.checked) {
+        setGrid(true)
+    } else {
+        setGrid(false)
     }
   }
 
@@ -40,6 +51,9 @@ export default function UI() {
             {
                 players.map((player) => (
                     <div key={player.id}>
+                        {player.id === user && (
+                            <kbd className="mr-2">&#128073;</kbd>
+                        )}
                         <kbd className="text-pink-500 font-semibold text-xs">{player.name} ~ </kbd>
                         <kbd className="text-white font-semibold text-xs">  {player.cansCount} Beers</kbd>
                     </div>
@@ -49,9 +63,16 @@ export default function UI() {
 
         <div className="absolute top-5 left-5">
             <label className="inline-flex items-center me-5 cursor-pointer">
-                <input type="checkbox" value="" className="sr-only peer" onChange={onToggle} />
+                <input type="checkbox" value="" className="sr-only peer" onChange={onToggleCam} />
                 <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-pink-300 dark:peer-focus:ring-pink-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-500"></div>
                 <kbd className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Zoom Cam</kbd>
+            </label>
+        </div>
+        <div className="absolute top-16 left-5">
+            <label className="inline-flex items-center me-5 cursor-pointer">
+                <input type="checkbox" value="" className="sr-only peer" onChange={onToggleGrid} />
+                <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-pink-300 dark:peer-focus:ring-pink-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-500"></div>
+                <kbd className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Grid Mode</kbd>
             </label>
         </div>
     </>

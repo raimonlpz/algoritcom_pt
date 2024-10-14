@@ -83,12 +83,12 @@ export function Drunkie({
             <primitive object={nodes.Root} />
           </group>
           <group name="Cactoro" rotation={[-Math.PI / 2, 0, 0]} scale={54}>
-            <skinnedMesh name="Cactoro_1" geometry={nodes.Cactoro_1.geometry} material={materials.Cactoro_Main} skeleton={nodes.Cactoro_1.skeleton} />
-            <skinnedMesh name="Cactoro_2" geometry={nodes.Cactoro_2.geometry} material={materials.Cactoro_Secondary} skeleton={nodes.Cactoro_2.skeleton} />
-            <skinnedMesh name="Cactoro_3" geometry={nodes.Cactoro_3.geometry} material={materials['Cactoro_Main.001']} skeleton={nodes.Cactoro_3.skeleton} />
-            <skinnedMesh name="Cactoro_4" geometry={nodes.Cactoro_4.geometry} material={materials.Cactoro_Red} skeleton={nodes.Cactoro_4.skeleton} />
-            <skinnedMesh name="Cactoro_5" geometry={nodes.Cactoro_5.geometry} material={materials.Eye_White} skeleton={nodes.Cactoro_5.skeleton} />
-            <skinnedMesh name="Cactoro_6" geometry={nodes.Cactoro_6.geometry} material={materials.Eye_Black} skeleton={nodes.Cactoro_6.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_1" geometry={nodes.Cactoro_1.geometry} material={materials.Cactoro_Main} skeleton={nodes.Cactoro_1.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_2" geometry={nodes.Cactoro_2.geometry} material={materials.Cactoro_Secondary} skeleton={nodes.Cactoro_2.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_3" geometry={nodes.Cactoro_3.geometry} material={materials['Cactoro_Main.001']} skeleton={nodes.Cactoro_3.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_4" geometry={nodes.Cactoro_4.geometry} material={materials.Cactoro_Red} skeleton={nodes.Cactoro_4.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_5" geometry={nodes.Cactoro_5.geometry} material={materials.Eye_White} skeleton={nodes.Cactoro_5.skeleton} />
+            <skinnedMesh castShadow name="Cactoro_6" geometry={nodes.Cactoro_6.geometry} material={materials.Eye_Black} skeleton={nodes.Cactoro_6.skeleton} />
           </group>
         </group>
       </group>

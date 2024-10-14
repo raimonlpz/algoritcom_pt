@@ -1,7 +1,7 @@
 import { Environment, Grid, OrbitControls, useCursor, } from "@react-three/drei"
 import { Player } from "./Player"
 import { useAtom } from "jotai"
-import { drunkieAtom, mapAtom, playersAtom, userAtom } from "../atoms"
+import { drunkieAtom, gridAtom, mapAtom, playersAtom, userAtom } from "../atoms"
 import { useGrid } from "../hooks/useGrid"
 import { Fence } from "./Fence"
 import { useEffect, useState } from "react"
@@ -25,6 +25,8 @@ export const Experience = () => {
 
     const [beers, setBeers] = useState([]);
     const [beersCollected] = useState([])
+
+    const [grid] = useAtom(gridAtom)
 
     const [onFloor, setOnFloor] = useState(false)
     useCursor(onFloor); 
@@ -113,7 +115,9 @@ export const Experience = () => {
                         <meshStandardMaterial color="#191919" />
                     </mesh>
                 </RigidBody>
-                {/* <Grid infiniteGrid fadeDistance={50} fadeStrength={5} /> */}
+                
+                { grid && <Grid infiniteGrid fadeDistance={50} fadeStrength={5} />}
+                
                 <Trash />
                 {
                     map.items.map((item, idx) => (

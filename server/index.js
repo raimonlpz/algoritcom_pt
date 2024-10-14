@@ -252,5 +252,5 @@ io.on("connection", (socket) => {
     drunkie.position = to;
     drunkie.path = path;
     io.emit("drunkieMove", drunkie);
-  }, 3000);
+  }, 4000);
 });

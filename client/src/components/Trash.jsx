@@ -23,7 +23,6 @@ export const Trash = () => {
 
     return (
         <group
-            castShadow
             scale={[.3,.3, .3]}
             position={gridToVector3(
                 [9, 9],
@@ -32,7 +31,7 @@ export const Trash = () => {
             )}
             position-y={0.55}
         >
-            <primitive object={clone}  />
+            <primitive castShadow object={clone}  />
             <Billboard
                 position={[0, 3, 0]} // Adjust the position of the Billboard relative to the Trash
                 follow={true} // Make the Billboard always face the camera

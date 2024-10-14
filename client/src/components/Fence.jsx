@@ -27,7 +27,7 @@ export const Fence = ({
             )}
       
         >   
-        <primitive object={clone} rotation-y={((rotation || 0) * Math.PI) / 2} />
+        <primitive castShadow object={clone} rotation-y={((rotation || 0) * Math.PI) / 2} />
         
         </group>
     );
