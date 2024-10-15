@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "build": "npm-run-all --parallel build:client build:server",
+        "build:client": "cd client && yarn && yarn dev",
+        "build:server": "cd server && yarn && yarn dev"
+    },
+    "devDependencies": {
+        "npm-run-all": "^4.1.5"
+    }
+}
