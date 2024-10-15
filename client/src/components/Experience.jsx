@@ -75,6 +75,8 @@ export const Experience = () => {
                 }
             })
     })
+
+    if (!map) return <></>
     
     return (
         <>
