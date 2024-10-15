@@ -4,7 +4,7 @@ import pathfinding from "pathfinding";
 
 const io = new Server({
   cors: {
-    origin: "https://algoritcom-pt.vercel.app",
+    origin: "http://localhost:5173",
   },
 });
 
