@@ -97,7 +97,15 @@ export function Player({
       if (user.id === id) {
         setAnimation('Jump');
       } 
-    })
+    });
+
+    return () => {
+      socket.off('canRobbed', (user) => {
+        if (user.id === id) {
+          setAnimation('Jump');
+        } 
+      });
+    }
   }, [])
 
 
