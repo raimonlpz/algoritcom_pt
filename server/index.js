@@ -233,8 +233,8 @@ io.on("connection", (socket) => {
     const player = players.find((player) => player.id === socket.id);
     if (player.cansCount > 0) {
       player.cansCount--;
-      io.emit("canRobbed", player);
     }
+    io.emit("canRobbed", player);
   });
 
   socket.on("jump", (user) => {
