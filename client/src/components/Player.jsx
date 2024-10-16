@@ -93,18 +93,16 @@ export function Player({
   };
 
   useEffect(() => {
-    socket.on('canRobbed', (user) => {
+
+    const onCanRobbed = (user) => {
       if (user.id === id) {
         setAnimation('Jump');
-      } 
-    });
+      }
+    }
 
+    socket.on('canRobbed', onCanRobbed);
     return () => {
-      socket.off('canRobbed', (user) => {
-        if (user.id === id) {
-          setAnimation('Jump');
-        } 
-      });
+      socket.off('canRobbed', onCanRobbed);
     }
   }, [])
 
